@@ -24,17 +24,18 @@ const protect=asyncHandler(async (req,res,next)=>{
         }
     }
 
-    if(!req.user){
-        res.status(400)
-        throw new Error('No user found in Database')
-    }else{
-        next()
-    }
-    
     if(!token){
         res.status(400)
         throw new Error('No token found or not authorized')
     }
+
+    if(!req.user){
+        res.status(400)
+        throw new Error('user not found in Database')
+    }else{
+        next()
+    }
+    
 })
 
 module.exports=protect
