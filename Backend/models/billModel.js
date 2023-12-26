@@ -13,6 +13,10 @@ const billSchema=mongoose.Schema({
     billType:{
         type:String,
         required:true
+    },
+    billDate:{
+        type:String,
+        required:true
     }
 },{
     timestamps:true

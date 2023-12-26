@@ -14,7 +14,7 @@ const postLoans= asyncHandler( async (req,res)=>{
         req.body.amountLeft=req.body.amount
     }
 
-    const {loanType,amount,startDate,endDate,amountPaid,amountLeft}=req.body
+    const {loanType,paymentMode,amount,interestRate,startDate,endDate,amountPaid,amountLeft}=req.body
     if(!loanType){
         res.status(400)
         throw new Error('Enter the required details')
@@ -23,7 +23,9 @@ const postLoans= asyncHandler( async (req,res)=>{
     const newLoan=await Loan.create({
         user,
         loanType,
+        paymentMode,
         amount,
+        interestRate,
         startDate,
         endDate, 
         amountPaid,
