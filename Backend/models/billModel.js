@@ -17,10 +17,6 @@ const billSchema=mongoose.Schema({
     billDate:{
         type:String,
         required:true
-    },
-    credit:{
-        type:Number,
-        required:true
     }
 },{
     timestamps:true

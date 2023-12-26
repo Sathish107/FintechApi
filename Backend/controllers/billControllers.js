@@ -8,7 +8,7 @@ const getBills=asyncHandler(async (req,res)=>{
 })
 
 const postBills=asyncHandler( async(req,res)=>{
-    if(!req.body.amount || !req.body.billType || !req.body.billDate || !req.body.credit){
+    if(!req.body.amount || !req.body.billType || !req.body.billDate){
         res.status(400)
         throw new Error('please enter the details')
     } 
@@ -16,8 +16,7 @@ const postBills=asyncHandler( async(req,res)=>{
         user:req.user.id,
         amount:req.body.amount,
         billType:req.body.billType,
-        billDate:req.body.billDate,
-        credit:req.body.credit
+        billDate:req.body.billDate
     })
 
     res.status(200).json(newBIll)
