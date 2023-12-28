@@ -6,6 +6,10 @@ const billSchema=mongoose.Schema({
         required:true,
         ref:'User'
     },
+    _id:{
+        type: Number,
+        required: true,
+    },
     amount:{
         type:Number,
         required:true,
