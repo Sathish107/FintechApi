@@ -8,12 +8,12 @@ const getBills=asyncHandler(async (req,res)=>{
 })
 
 const postBills=asyncHandler( async(req,res)=>{
-    if(!req.body.amount || !req.body.billType || !req.body.billDate || !req.body.id){
+    if(!req.body.amount || !req.body.billType || !req.body.billDate || !req.body.pivot){
         res.status(400)
         throw new Error('please enter the details')
     } 
     const newBIll=await Bill.create({
-        _id:req.body.id,
+        pivot:req.body.pivot,
         user:req.user.id,
         amount:req.body.amount,
         billType:req.body.billType,

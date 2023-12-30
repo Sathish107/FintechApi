@@ -6,7 +6,7 @@ const billSchema=mongoose.Schema({
         required:true,
         ref:'User'
     },
-    _id:{
+    pivot:{
         type: Number,
         required: true,
     },
