@@ -24,49 +24,51 @@ const postBills=asyncHandler( async(req,res)=>{
 })
 
 const putBills= asyncHandler(async (req,res)=>{ 
-    const bill=await Bill.findById(req.params.id); 
-    if(!bill){
-        res.status(400)
-        throw new Error('no bills found')
-    }
-
     const user=await User.findById(req.user.id)
     if(!user){
         res.status(400)
         throw new Error('No such user with that id provided')
     } 
 
-    if(bill.user.toString()!==user.id){
+    const bill=await Bill.find({pivot:req.params.pivot,user:user.id}); 
+
+    if(!bill[0]){
+        res.status(400)
+        throw new Error('no bills found')
+    }
+
+    if(bill[0].user.toString()!==user.id){
         res.status(400)
         throw new Error("You are not authorized to access this bill")
     }
 
-    const updatedBill=await Bill.findByIdAndUpdate(req.params.id,req.body,{
+    const updatedBill=await Bill.findByIdAndUpdate(bill[0].id,req.body,{
         new:true,
     })
     res.status(200).json(updatedBill)
 })
 
 const deleteBills=asyncHandler(async(req,res)=>{
-    const bill=await Bill.findById(req.params.id);
-    if(!bill){
-        res.status(400)
-        throw new error('no bills found')
-    }
-
     const user=await User.findById(req.user.id)
     if(!user){
         res.status(400)
         throw new Error('No such user with that id provided')
     } 
 
-    if(bill.user.toString()!==user.id){
+    const bill=await Bill.find({pivot:req.params.pivot,user:user.id}); 
+
+    if(!bill[0]){
+        res.status(400)
+        throw new Error('no bills found')
+    }
+
+    if(bill[0].user.toString()!==user.id){
         res.status(400)
         throw new Error("You are not authorized to access this bill")
     }
-    await Bill.findByIdAndDelete(req.params.id)
+    await Bill.findByIdAndDelete(bill[0].id)
 
-    res.status(200).json({id:req.params.id})
+    res.status(200).json({id:bill[0].id})
 })
 
 module.exports={

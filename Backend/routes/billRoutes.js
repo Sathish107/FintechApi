@@ -3,6 +3,6 @@ const {getBills,postBills,putBills,deleteBills}=require('../controllers/billCont
 const protect=require('../middleware/authMiddleware')
 
 router.route('/').get(protect,getBills).post(protect,postBills)
-router.route('/:id').put(protect,putBills).delete(protect,deleteBills)
+router.route('/:pivot').put(protect,putBills).delete(protect,deleteBills)
 
 module.exports=router
